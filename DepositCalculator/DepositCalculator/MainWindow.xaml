@@ -1,0 +1,89 @@
+﻿<Window x:Class="DepositCalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DepositCalculator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:DepositViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.Margin>
+            <Thickness Left="10" Top="10" Right="10" Bottom="10"/>
+        </Grid.Margin>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Text="Deposit Amount" FontSize="20"></TextBlock>
+            <TextBox 
+                Margin="20,0,0,0" 
+                Width="150" 
+                Text="{Binding DepositAmount, UpdateSourceTrigger=PropertyChanged}" 
+                Background="LightGray"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,20,0,0">
+            <TextBlock  Text="DepositPeriod" FontSize="20"></TextBlock>
+            <Slider 
+                Margin="20,0,0,0" 
+                Width="300" 
+                Value="{Binding DepositPeriod, UpdateSourceTrigger=PropertyChanged}"
+                AutoToolTipPlacement="TopLeft"
+                Maximum="24"
+                TickFrequency="1"
+                Ticks="3,6,9,12,24"
+                IsSnapToTickEnabled="True"
+                TickPlacement="BottomRight"></Slider>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,20,0,0">
+            <TextBlock Text="Payment method" FontSize="20"></TextBlock>
+            <RadioButton 
+                Margin="20,0,0,0" 
+                FontSize="20" 
+                GroupName="PaymentMethod" 
+                Content="End of term" 
+                IsChecked="{Binding Path=PaymentMethod[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </RadioButton>
+            <RadioButton 
+                Margin="20,0,0,0" 
+                FontSize="20" 
+                GroupName="PaymentMethod" 
+                Content="Monthly" 
+                IsChecked="{Binding Path=PaymentMethod[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal" 
+                    Margin="0,20,0,0">
+            <TextBlock 
+                Text="Currency" 
+                FontSize="20">
+            </TextBlock>
+            <ComboBox 
+                Margin="20,0,0,0" 
+                Width="150" 
+                ItemsSource="{Binding ListOfCurrencies }" 
+                SelectedItem="{Binding SelectedCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,20,0,0">
+            <!--Result-->
+            <TextBlock Text="Result" FontSize="20"></TextBlock>
+            <TextBox Margin="20,0,0,0" FontSize="20" Width="600" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto">
+                <TextBox.Text>
+                    <MultiBinding StringFormat="You will receive {0} {1} after {2} mouth" Mode="OneWay">
+                        <Binding Path="Result"></Binding>
+                        <Binding Path="SelectedCurrency"></Binding>
+                        <Binding Path="DepositPeriod"></Binding>
+                    </MultiBinding>
+                </TextBox.Text>
+            </TextBox>
+        </StackPanel>
+    </Grid>
+</Window>
