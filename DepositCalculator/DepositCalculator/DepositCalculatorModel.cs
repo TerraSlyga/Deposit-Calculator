@@ -9,37 +9,82 @@ namespace DepositCalculator
 	internal class DepositCalculatorModel
 	{
 		// Dictionary with deposit interest rates for different currencies and periods
-		Dictionary<string, Dictionary<int,List<double>>> _depositInterestRates = new Dictionary<string, Dictionary<int, List<double>>>
+		private readonly Dictionary<string, Dictionary<int,double>> _depositInterestRates = new Dictionary<string, Dictionary<int, double>>
 		{
-			["UAH"] = new Dictionary<int, List<double>>
+			["UAH"] = new Dictionary<int, double>
 			{
-				[3] = new List<double> { 15, 6 },
-				[6] = new List<double> { 15.2, 7 },
-				[9] = new List<double> { 15.4, 8 },
-				[12] = new List<double> { 15.5, 9 },
-				[24] = new List<double> { 16, 9 }
+				[3] =  0.15,
+				[6] =  0.15,
+				[9] =  0.154,
+				[12] = 0.155,
+				[24] = 0.16
+
 			},
-			["USD"] = new Dictionary<int, List<double>>
+			["USD"] = new Dictionary<int, double>
 			{
-				[3] = new List<double> { 0.1, 0.1 },
-				[6] = new List<double> { 1.6, 1.6 },
-				[9] = new List<double> { 1.9, 1.9 },
-				[12] = new List<double> { 2.1, 2.1 }
+				[3] = 0.01,
+				[6] = 0.016,
+				[9] = 0.019,
+				[12] = 0.021
 			},
-			["EUR"] = new Dictionary<int, List<double>>
+			["EUR"] = new Dictionary<int, double>
 			{
-				[3] = new List<double> { 0.1, 0.1 },
-				[6] = new List<double> { 1.1, 1.1 },
-				[9] = new List<double> { 1.4, 1.4 },
-				[12] = new List<double> { 1.6, 1.6 }
+				[3] = 0.001,
+				[6] = 0.011,
+				[9] = 0.014,
+				[12] = 0.016
 			}
 		};
 
-		public double CalculateDeposit(double depositAmount, int depositPeriod, int selectedPaymentMethodIndex, string selectedCurrency, int round)
+		public string CalculateDeposit(double depositAmount, int depositPeriod, int selectedPaymentMethodIndex, string selectedCurrency, int round)
 		{
-			double interestRate = _depositInterestRates[selectedCurrency][depositPeriod][selectedPaymentMethodIndex];
-			double result = Math.Round(depositAmount * (1 + interestRate / 100 * depositPeriod / 12), round);
-			return result;
+			try
+			{
+				double depositResult;
+				if (selectedPaymentMethodIndex == 0)
+				{
+					depositResult = CalculateWithCapitalization(depositAmount, depositPeriod, selectedCurrency, round);
+				}
+				else
+				{
+					depositResult = CalculateWithMonthlyPayment(depositAmount, depositPeriod, selectedCurrency, round);
+				}
+				return string.Format("You will receive {0} {1} after {2} mouth", depositResult, selectedCurrency, depositPeriod);
+			}
+			catch (DepostitDataNotFoundExeption)
+			{
+				return string.Format("There is no data for {0} currency with {1} period", selectedCurrency, depositPeriod);
+			}
+
+		}
+
+		public double CalculateWithMonthlyPayment(double depositAmount, int depositPeriod, string selectedCurrency, int round)
+		{
+			try
+			{
+				double interestRate = _depositInterestRates[selectedCurrency][depositPeriod];
+				double result = depositAmount * (1f + interestRate * depositPeriod / 12);
+				return Math.Round(result, round);
+			}
+			catch (Exception)
+			{
+				throw new DepostitDataNotFoundExeption();
+			}
+		}
+
+		public double CalculateWithCapitalization(double depositAmount, int depositPeriod, string selectedCurrency, int round)
+		{
+			try
+			{
+				double interestRate = _depositInterestRates[selectedCurrency][depositPeriod];
+				double result = depositAmount * Math.Pow(1f + interestRate / 12, depositPeriod);
+				return Math.Round(result, round);
+
+			}
+			catch (Exception)
+			{
+				throw new DepostitDataNotFoundExeption();
+			}
 		}
 	}
 }

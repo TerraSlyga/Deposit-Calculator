@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace DepositCalculator
 {
@@ -15,6 +16,13 @@ namespace DepositCalculator
 		protected virtual void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		public DepositViewModel()
+		{
+			_depositAmount = 0;
+			_depositPeriod = 3;
+			_selectedCurrency = "UAH";
 		}
 
 		private double _depositAmount;
@@ -27,7 +35,7 @@ namespace DepositCalculator
 				OnPropertyChanged("Result");
 			}
 		}
-
+		
 		private int _depositPeriod;
 		public int DepositPeriod
 		{
@@ -67,6 +75,7 @@ namespace DepositCalculator
 			}
 		}
 
+
 		private ObservableCollection<string> _listOfCurrencies = new ObservableCollection<string> { "USD", "EUR", "UAH" };
 		public ObservableCollection<string> ListOfCurrencies
 		{
@@ -74,10 +83,9 @@ namespace DepositCalculator
 		}
 
 		DepositCalculatorModel _model = new DepositCalculatorModel();
-		private double _result;
-		public double Result
+		public string Result
 		{
-			get => _model.CalculateDeposit(_depositAmount, _depositPeriod, _selectedPaymentMethodIndex, _selectedCurrency, 5);
+			get => _model.CalculateDeposit(_depositAmount, _depositPeriod, _selectedPaymentMethodIndex, _selectedCurrency, 2);
 		}
 
 

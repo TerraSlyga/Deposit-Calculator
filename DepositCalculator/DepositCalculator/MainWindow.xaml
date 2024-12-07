@@ -5,14 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DepositCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="DepositCalculator" Height="245" Width="699"
+        Background="#102026"
+        ResizeMode="NoResize">
     <Window.DataContext>
+        <!--VM Conect-->
         <local:DepositViewModel/>
     </Window.DataContext>
+    <!--Visual-->
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#4EA68D" Offset="0"/>
+                <GradientStop Color="#1A2A3A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <!--Adding margin to Grid-->
         <Grid.Margin>
             <Thickness Left="10" Top="10" Right="10" Bottom="10"/>
         </Grid.Margin>
+        
+        <!--Define rows to Grid-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -20,27 +33,45 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <!--First row, Deposit amount and currency-->
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="Deposit Amount" FontSize="20"></TextBlock>
             <TextBox 
                 Margin="20,0,0,0" 
                 Width="150" 
                 Text="{Binding DepositAmount, UpdateSourceTrigger=PropertyChanged}" 
-                Background="LightGray"></TextBox>
+                Background="Transparent"
+                FontSize="20"
+                VerticalContentAlignment="Center"
+                ></TextBox>
+            <ComboBox 
+                Margin="20,0,0,0" 
+                Width="150" 
+                ItemsSource="{Binding ListOfCurrencies }" 
+                SelectedItem="{Binding SelectedCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Background="Transparent"
+                FontSize="20">
+            </ComboBox>
         </StackPanel>
+        
+        <!--Second row, period-->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,20,0,0">
             <TextBlock  Text="DepositPeriod" FontSize="20"></TextBlock>
             <Slider 
+                x:Name="periodSlider"
                 Margin="20,0,0,0" 
                 Width="300" 
                 Value="{Binding DepositPeriod, UpdateSourceTrigger=PropertyChanged}"
                 AutoToolTipPlacement="TopLeft"
                 Maximum="24"
-                TickFrequency="1"
                 Ticks="3,6,9,12,24"
                 IsSnapToTickEnabled="True"
-                TickPlacement="BottomRight"></Slider>
+                TickPlacement="BottomRight">                
+            </Slider>
         </StackPanel>
+        
+        <!--Third row, payment method-->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,20,0,0">
             <TextBlock Text="Payment method" FontSize="20"></TextBlock>
             <RadioButton 
@@ -48,6 +79,7 @@
                 FontSize="20" 
                 GroupName="PaymentMethod" 
                 Content="End of term" 
+                
                 IsChecked="{Binding Path=PaymentMethod[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </RadioButton>
             <RadioButton 
@@ -58,31 +90,18 @@
                 IsChecked="{Binding Path=PaymentMethod[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </RadioButton>
         </StackPanel>
-        <StackPanel Grid.Row="3" 
-                    Orientation="Horizontal" 
-                    Margin="0,20,0,0">
-            <TextBlock 
-                Text="Currency" 
-                FontSize="20">
-            </TextBlock>
-            <ComboBox 
-                Margin="20,0,0,0" 
-                Width="150" 
-                ItemsSource="{Binding ListOfCurrencies }" 
-                SelectedItem="{Binding SelectedCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            </ComboBox>
-        </StackPanel>
+        
+        <!--Fourth row, result-->
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,20,0,0">
-            <!--Result-->
             <TextBlock Text="Result" FontSize="20"></TextBlock>
-            <TextBox Margin="20,0,0,0" FontSize="20" Width="600" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto">
-                <TextBox.Text>
-                    <MultiBinding StringFormat="You will receive {0} {1} after {2} mouth" Mode="OneWay">
-                        <Binding Path="Result"></Binding>
-                        <Binding Path="SelectedCurrency"></Binding>
-                        <Binding Path="DepositPeriod"></Binding>
-                    </MultiBinding>
-                </TextBox.Text>
+            <TextBox 
+                Margin="20,0,0,0" 
+                FontSize="20" 
+                Width="592" 
+                TextWrapping="Wrap" 
+                VerticalScrollBarVisibility="Auto"
+                Text="{Binding Result, Mode=OneWay}"
+                Background="Transparent">
             </TextBox>
         </StackPanel>
     </Grid>
