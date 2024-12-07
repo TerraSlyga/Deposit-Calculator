@@ -18,6 +18,15 @@ namespace DepositCalculator
 			sqlManager.CloseConnection();
 		}
 
+		/// <summary>
+		/// Calculates deposit amount with capitalization or monthly payment
+		/// </summary>
+		/// <param name="depositAmount">Deposit amount</param>
+		/// <param name="depositPeriod">Deposit period</param>
+		/// <param name="selectedPaymentMethodIndex"></param>
+		/// <param name="selectedCurrency">Selected currency</param>
+		/// <param name="round">Number of numbers after dot</param>
+		/// <returns>String with result of calculation</returns>
 		public string CalculateDeposit(double depositAmount, int depositPeriod, int selectedPaymentMethodIndex, string selectedCurrency, int round)
 		{
 			try
@@ -40,6 +49,16 @@ namespace DepositCalculator
 
 		}
 
+
+		/// <summary>
+		/// Calculates deposit amount with monthly payment
+		/// </summary>
+		/// <param name="depositAmount">Deposit amount</param>
+		/// <param name="depositPeriod">Deposit period</param>
+		/// <param name="selectedCurrency">Selected currency</param>
+		/// <param name="round">Number of numbers after dot</param>
+		/// <returns>Result of calculation</returns>
+		/// <exception cref="DepostitDataNotFoundExeption"></exception>
 		public double CalculateWithMonthlyPayment(double depositAmount, int depositPeriod, string selectedCurrency, int round)
 		{
 			try
@@ -54,6 +73,15 @@ namespace DepositCalculator
 			}
 		}
 
+		/// <summary>
+		/// Calculates deposit amount with capitalization
+		/// </summary>
+		/// <param name="depositAmount">Deposit amount</param>
+		/// <param name="depositPeriod">Deposit period</param>
+		/// <param name="selectedCurrency">Selected currency</param>
+		/// <param name="round">Number of numbers after dot</param>
+		/// <returns>Result of calculation</returns>
+		/// <exception cref="DepostitDataNotFoundExeption"></exception>
 		public double CalculateWithCapitalization(double depositAmount, int depositPeriod, string selectedCurrency, int round)
 		{
 			try

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DepositCalculator
 {
+	// Class for exception when data for deposit is not found
 	internal class DepostitDataNotFoundExeption : Exception
 	{
 	}

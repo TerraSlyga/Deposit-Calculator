@@ -25,6 +25,7 @@ namespace DepositCalculator
 			_selectedCurrency = "UAH";
 		}
 
+		// Properties for binding
 		private double _depositAmount;
 		public double DepositAmount
 		{
@@ -75,14 +76,16 @@ namespace DepositCalculator
 			}
 		}
 
-
+		// List of currencies
 		private ObservableCollection<string> _listOfCurrencies = new ObservableCollection<string> { "USD", "EUR", "UAH" };
+		
 		public ObservableCollection<string> ListOfCurrencies
 		{
 			get => _listOfCurrencies;
 		}
 
 		DepositCalculatorModel _model = new DepositCalculatorModel();
+		// Result of calculation
 		public string Result
 		{
 			get => _model.CalculateDeposit(_depositAmount, _depositPeriod, _selectedPaymentMethodIndex, _selectedCurrency, 2);
