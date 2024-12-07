@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vfiHeXhyl6orQSvHUGrnlA7EyhLvngXkUx66kxaQ+yt7gQt3KeVsj/vHRQP0k055KC8kyizoC09MvLvODA37LQ==",
+  "dgSpecHash": "YD1ZUWMXn+unYFITeqFxI/aLDJ5qcAJblpsDguS1SR0gs1D4F1B0y1PXspSnUCHu0sY05uM+J2RcNdeLozQ66g==",
   "success": true,
   "projectFilePath": "D:\\Visual Studio saves\\Deposit-Calculator\\DepositCalculator\\DepositCalculator\\DepositCalculator.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\npgsql\\9.0.2\\npgsql.9.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

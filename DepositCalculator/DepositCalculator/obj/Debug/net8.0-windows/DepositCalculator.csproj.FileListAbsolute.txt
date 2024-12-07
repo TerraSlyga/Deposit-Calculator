@@ -20,3 +20,8 @@ D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\ob
 D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\obj\Debug\net8.0-windows\DepositCalculator.sourcelink.json
 D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\obj\Debug\net8.0-windows\DepositCalculator.genruntimeconfig.cache
 D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\obj\Debug\net8.0-windows\ref\DepositCalculator.dll
+D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\obj\Debug\net8.0-windows\DepositCalculator.csproj.AssemblyReference.cache
+D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\bin\Debug\net8.0-windows\Npgsql.dll
+D:\Visual Studio saves\Deposit-Calculator\DepositCalculator\DepositCalculator\obj\Debug\net8.0-windows\DepositCalculator.csproj.CopyComplete

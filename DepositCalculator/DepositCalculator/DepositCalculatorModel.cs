@@ -9,32 +9,14 @@ namespace DepositCalculator
 	internal class DepositCalculatorModel
 	{
 		// Dictionary with deposit interest rates for different currencies and periods
-		private readonly Dictionary<string, Dictionary<int,double>> _depositInterestRates = new Dictionary<string, Dictionary<int, double>>
+		InterestRates _depositInterestRates = new();
+		
+		public DepositCalculatorModel()
 		{
-			["UAH"] = new Dictionary<int, double>
-			{
-				[3] =  0.15,
-				[6] =  0.15,
-				[9] =  0.154,
-				[12] = 0.155,
-				[24] = 0.16
-
-			},
-			["USD"] = new Dictionary<int, double>
-			{
-				[3] = 0.01,
-				[6] = 0.016,
-				[9] = 0.019,
-				[12] = 0.021
-			},
-			["EUR"] = new Dictionary<int, double>
-			{
-				[3] = 0.001,
-				[6] = 0.011,
-				[9] = 0.014,
-				[12] = 0.016
-			}
-		};
+			SQLManager sqlManager = new SQLManager();
+			_depositInterestRates.AddInterestRates(sqlManager.ReadInterestRates());
+			sqlManager.CloseConnection();
+		}
 
 		public string CalculateDeposit(double depositAmount, int depositPeriod, int selectedPaymentMethodIndex, string selectedCurrency, int round)
 		{
